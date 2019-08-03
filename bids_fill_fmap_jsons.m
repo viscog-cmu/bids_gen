@@ -21,7 +21,6 @@ function  bids_fill_fmap_jsons( experiment, sub, ses, intended_tasks )
     %set fmap and func directories to appropriate locations
     %func dir is with respect to the subject dir per bids spec
     bids_dir = get_bids_dir(experiment);
-    bids_dir = ['/home/vm01/Documents/bids/',experiment];
     if ses>0
         subses_dir = sprintf('%s/sub-%02d/ses-%02d',bids_dir,sub,ses);
         func_dir = sprintf('ses-%02d/func',ses);
@@ -34,10 +33,11 @@ function  bids_fill_fmap_jsons( experiment, sub, ses, intended_tasks )
     fmap_dir = fullfile(subses_dir,'fmap');
 
     %determine number of each possible task (could be 0)
-    scans = tdfread(sprintf('%s/sub-%02d_%sscans.tsv',subses_dir,sub,ses_tag));
-    func_scans = cellstr(scans.filename(contains(scans.filename,'func/'),:));
+    scans = tdfread(sprintf('%s/sub-%02d_%sscans.tsv',subses_dir,sub,ses_tag), '\t');
+    filenames = string(scans.filename);
+    func_scans = cellstr(filenames(contains(filenames,'func/'),:));
     runs_per_task = zeros(size(intended_tasks));
-    for task_i=1:length(intended_tasks)
+    for task_i=1:length(intended_tasks)     
         task = intended_tasks{task_i};
         runs_per_task(task_i) = sum(contains(func_scans,[task,'_']));
     end

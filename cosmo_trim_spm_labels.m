@@ -16,11 +16,11 @@ labels = ds.sa.labels;
 
 for ii = 1:length(labels)
     if ds.sa.chunks < 10
-        labels{ii} = labels{ii}(6:end-6);
-    elseif ds.sa.chunks <100
         labels{ii} = labels{ii}(7:end-6);
-    elseif ds.sa.chunks < 1000
+    elseif ds.sa.chunks <100
         labels{ii} = labels{ii}(8:end-6);
+    elseif ds.sa.chunks < 1000
+        labels{ii} = labels{ii}(9:end-6);
     end
 end
 

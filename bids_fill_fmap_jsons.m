@@ -66,12 +66,7 @@ function  bids_fill_fmap_jsons( experiment, sub, ses, intended_tasks )
     for ii=1:length(json_files)
         json = loadjson(json_files{ii});
         json.IntendedFor = char(json_field);
-        try
-            savejson('',json,json_files{ii});
-        catch
-            delete(json_files{ii})
-            savejson('',json,json_files{ii});
-        end
+        savejson('',json,json_files{ii});
     end
 
 end

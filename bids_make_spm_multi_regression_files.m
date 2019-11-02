@@ -1,7 +1,7 @@
 function bids_make_spm_multi_regression_files( sub, experiment, tasks, new_format )
 %BIDS_MAKE_SPM_MULTI_REGRESSION_FILE 
 %   convert FMRIPREP confounds.tsv files to spm multiple conditions format
-%   regressors: 6 motion regressors, aCompCor (5 comps), and FD
+%   regressors: 6 motion regressors, aCompCor (6 comps), and FD
 %   (framewise-displacement). 
 %   component choices as recommended by Chris Gorkolewski on Neurostars
 %   (https://neurostars.org/t/confounds-from-fmriprep-which-one-would-you-use-for-glm/326)

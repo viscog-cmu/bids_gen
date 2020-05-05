@@ -1,4 +1,4 @@
-function bids_make_spm_multi_regression_files( sub, experiment, tasks, new_format )
+function bids_make_spm_multi_regression_files( sub, experiment, tasks, new_format, overwrite )
 %BIDS_MAKE_SPM_MULTI_REGRESSION_FILE 
 %   convert FMRIPREP confounds.tsv files to spm multiple conditions format
 %   regressors: 6 motion regressors, aCompCor (6 comps), and FD
@@ -17,6 +17,9 @@ bids_dir = get_bids_dir(experiment);
 % default to old format for backwards compatibility
 if nargin < 4
     new_format = 0;
+end
+if nargin < 5
+    overwrite = 0;
 end
 
 sub_deriv_dir = sprintf('%s/derivatives/fmriprep/sub-%02d',bids_dir,sub);
@@ -81,9 +84,11 @@ else
             exp_run = exp_run + 1;
             
             fname = sprintf('%s/sub-%02d_task-%s_run-%02d_multiregressors.txt',out_dir,sub,tasks{task},exp_run);
-            if exist(fname,'file')
-                name = strrep(name, sprintf('run-%02d', exp_run), sprintf('run-%02d', exp_run+1));
-                continue
+            if ~overwrite
+                if exist(fname,'file')
+                    name = strrep(name, sprintf('run-%02d', exp_run), sprintf('run-%02d', exp_run+1));
+                    continue
+                end
             end
             
             confounds = tdfread(name);

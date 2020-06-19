@@ -25,7 +25,7 @@ args = parser.parse_args()
 
 subject = f'sub-{args.subnum:02d}'
 if args.experiment_short is not None and len(args.experiment_short) > 0:
-    pyc_subject = f'{experiment_short}-{subject}'
+    pyc_subject = f'{args.experiment_short}-{subject}'
 else:
     pyc_subject = f'{subject}'
     

@@ -43,6 +43,7 @@ head -n 8 $fsRegFile | tail -n 4 > $fsRegMtx
 
 ## Convert the transform from FreeSurfer to pycortex format
 cat <<EOF | matlab -nodisplay
+setup_paths ;
 t = MRIread('$anatFile');
 e = MRIread('$refFile');
 t2e_fs = dlmread('$fsRegMtx');

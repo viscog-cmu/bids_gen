@@ -27,7 +27,7 @@ import_subj(f'sub-{args.subnum:02d}', pyc_subject, freesurfer_subject_dir=bids_d
 # # then import flattened surfaces from freesurfer
 if args.import_flat:
     try:
-        import_flat(subject, 'full', sname=pyc_subject)
+        import_flat(subject, 'full', cx_subject=pyc_subject)
     except Exception as e:
         print(e)
 

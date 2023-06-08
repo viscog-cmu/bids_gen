@@ -70,8 +70,9 @@ for sub = subs
         cosmo_map2fmri(func_ds, replace(fn,'.mat', '.nii.gz'));
         [~,name,~] = fileparts(fn);
         fprintf('\n Saved: sub-%02d %s', sub, name)
-    catch
+    catch e
         fprintf('\n sub -%02d failed', sub)
+        fprintf(1,'The message was:\n%s',e.message);
         continue
     end
 end

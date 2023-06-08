@@ -1,5 +1,5 @@
 
-function get_func_tstats(subs,space,sm_fwhm,experiment,glm_name)
+function get_func_tstats(subs,space,sm_fwhm,experiment,glm_name,reg_tag)
 
 % compute beta > base t-contrasts for all SPM covariates, but not nuisance
 % regressors. compute the scalar between beta and tstat for quick (optional) beta->tstat
@@ -13,11 +13,15 @@ else
     sm_tag='';
 end
 
+if nargin < 6
+    reg_tag = '';
+end
+
 for sub = subs
         if ~exist(sprintf('%s/derivatives/matlab/sub-%02d',bids_dir,sub),'dir')
             mkdir(sprintf('%s/derivatives/matlab/sub-%02d',bids_dir,sub))
         end
-        model_dir = sprintf('%s/derivatives/matlab/spm/sub-%02d/SPM-%s_vol-%s%s',bids_dir,sub,glm_name,space,sm_tag);
+        model_dir = sprintf('%s/derivatives/matlab/spm/sub-%02d/SPM-%s_vol-%s%s%s',bids_dir,sub,glm_name,space,sm_tag,reg_tag);
         fname = sprintf('%s/tstat_constants.mat',model_dir);
         if exist(fname,'file')
             continue
